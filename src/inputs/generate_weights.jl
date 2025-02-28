@@ -43,6 +43,6 @@ end
 function generate_connection_matrix(economic_values::DataFrame)::SparseMatrixCSC
     sort!(economic_values, :node)
     is_reserve::Vector{Int} = economic_values.weight .> 0
-    M::Matrix{Int} = is_reserve * transpose(1 - is_reserve) + (1 - is_reserve) * transpose(is_reserve)
+    M::Matrix{Int} = is_reserve * transpose(1 .- is_reserve) + (1 .- is_reserve) * transpose(is_reserve)
     return sparse(M)
 end
